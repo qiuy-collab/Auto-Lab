@@ -1,0 +1,7 @@
+{
+  "target_docx": ".\\output\\实验报告.docx",
+  "images": {
+    "img_01": ".\\output\\generated_images\\img_01.png",
+    "img_02": ".\\output\\generated_images\\img_02.png"
+  }
+}
