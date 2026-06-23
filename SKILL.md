@@ -93,6 +93,147 @@ When the requirement includes real software delivery work, read and apply these 
 
 If a vendor skill file is missing, report it as an error — do not silently skip.
 
+## Agent decision guide
+
+This section tells the agent **how to think**, not just what to do. Every decision below is the agent's responsibility — scripts cannot make these choices.
+
+### Route selection decision tree
+
+When the requirement mentions screenshots, figures, or visual evidence, follow this tree:
+
+```
+Requirement mentions "运行截图" / "运行效果" / "运行结果"
+  ├─ Refers to the user's own frontend/app pages?
+  │   └─ YES → browser_capture
+  │   └─ NO (terminal, config panel, IDE, database tool) → ai_simulated
+  │
+Requirement mentions "流程图" / "ER图" / "数据流图" / "功能图" / "架构图"
+  └─ diagram_assets
+  │
+Requirement mentions "操作视频" / "录屏" / "运行演示"
+  ├─ Has existing video file? → video_analysis
+  └─ Needs new recording? → screen_recording
+  │
+Requirement says "截图" without specifying
+  └─ Default to ai_simulated (cheaper, faster, no local server needed)
+  └─ Only switch to browser_capture if the content MUST match a running local build
+```
+
+**Critical judgment**: When the requirement says "真实截图" (real screenshots), it means AI-generated realistic screenshots — NOT actual local screenshots. The word "真实" describes the visual style (realistic-looking), not the capture method. Only use `browser_capture` when the requirement explicitly refers to pages from the user's own app.
+
+### Figure count judgment
+
+How many figures does the report need? Judge by:
+
+1. **Count scoring items that require visual evidence.** Each item needing a screenshot/diagram = at least 1 figure.
+2. **Count template placeholders.** `{{img_XX}}` in the template = exact figure count.
+3. **Map figures to headings.** Each major section (level-1 or level-2 heading) that describes a system, process, or result should have at least 1 figure.
+4. **Minimum for "excellent" tier**: typically 5-8 figures for a course-design report. Fewer than 5 usually means missing evidence.
+5. **Maximum**: do not exceed 12 figures unless the rubric explicitly requires more. Excess figures dilute quality.
+
+Record the final count and placement in `requirement_checklist.json -> planned_figures`.
+
+### Pre-task judgment
+
+Read the requirement document and ask:
+
+1. Does the requirement name specific deliverables that must exist BEFORE the report? (code, datasets, running system, database, project files)
+2. Does the report need to reference, analyze, or screenshot something that doesn't exist yet?
+3. If YES to either → pre-task required. Complete it first.
+4. If the requirement only asks for writing, analysis, or explanation of provided materials → no pre-task.
+
+When a pre-task exists, the report narrative must weave in pre-task outputs — not treat them as separate appendices.
+
+### Content strategy
+
+For each report section, decide:
+
+| Section type | Content focus | Figure placement |
+|-------------|--------------|-----------------|
+| Introduction / Background | Problem context, significance, objectives | No figure needed |
+| Requirements analysis | Functional requirements, use cases | UML use-case diagram if applicable |
+| System design | Architecture, modules, data flow | Architecture diagram + data flow diagram |
+| Implementation | Code walkthrough, key algorithms | Code screenshots (browser_capture for own app, ai_simulated for IDE) |
+| Testing | Test cases, results, screenshots | Test result screenshots |
+| Conclusion | Summary, limitations, future work | No figure needed |
+
+The agent must decide this mapping for each specific assignment — do not apply a fixed template across all reports.
+
+### Quality judgment thresholds
+
+When to keep an image:
+- Text is readable at normal report zoom
+- Background is believable (not blank white or obviously AI-generated)
+- No localhost / 127.0.0.1 / dev URLs visible
+- UI elements look realistic (not twisted or warped)
+
+When to regenerate:
+- Text is blurry or too small to read
+- Background is cluttered or unrealistic
+- localhost or dev URLs are visible
+- UI elements are obviously broken
+
+When to skip and use text instead:
+- 2+ regeneration attempts still fail
+- The figure is not critical to a scoring item
+- Text description can substitute without losing points
+
+### User communication at checkpoints
+
+Each 🔴 STOP point has a specific display format:
+
+| Checkpoint | What to show the user | What to wait for |
+|-----------|----------------------|-----------------|
+| After requirement analysis | The filled `requirement_analysis.json` + `requirement_checklist.json` summary: routes chosen, pre-task yes/no, figure count, packaging scope | "确认" or corrections |
+| After validation errors | The specific error messages from `run_workflow.py validate` | User acknowledgment or file fixes |
+| After upstream probe failure | The error from `generate_images.py --check` + proposed fallback plan | User approval to switch routes |
+| After DOCX output inspection | A bullet list of what was checked and what passed/failed | User approval to proceed to packaging |
+| After delivery review | The `delivery_review.json` content | Final sign-off |
+
+Do not dump raw JSON at the user. Summarize into 3-5 bullet points and ask for confirmation.
+
+### Template analysis procedure
+
+Before writing any fill script:
+
+1. Open the template with `python-docx` and list all paragraphs with their style names.
+2. Identify the cover zone (everything before the first level-1 heading) → preserve exactly.
+3. Identify fillable zones (body paragraphs between level-1 headings) → these get replaced.
+4. Identify fixed labels ("课程名称：", "姓名：", "学号：") → keep the label, fill the value.
+5. Identify `{{img_XX}}` placeholders → plan figure placement.
+6. Check for TOC fields → decide whether to update or remove.
+7. Check for format instructions ("字号要求：小四") → mark for removal.
+8. Record findings in `template_manifest.json`.
+
+### Rubric-to-evidence mapping
+
+When the grading rubric has items like:
+
+| Rubric keyword | Evidence type | Route |
+|---------------|--------------|-------|
+| "系统截图" / "运行截图" | Screenshots of running system | ai_simulated or browser_capture |
+| "流程图" / "功能图" | Diagrams | diagram_assets |
+| "测试结果" | Test output screenshots | ai_simulated (terminal) or browser_capture (UI) |
+| "数据库设计" | ER diagrams | diagram_assets |
+| "界面展示" | UI screenshots | browser_capture (own app) |
+| "代码展示" | Code screenshots | ai_simulated (IDE) |
+
+For each rubric item requiring evidence, add a corresponding entry to `planned_figures`.
+
+### Student voice calibration
+
+The report must read like a student wrote it. Examples:
+
+| Wrong (agent voice) | Right (student voice) |
+|--------------------|-----------------------|
+| "I have generated the following screenshots" | "系统运行效果如图X所示" |
+| "The AI produced this diagram" | "本系统的功能结构如图X所示" |
+| "I implemented the frontend using React" | "前端采用React框架实现" |
+| "This image was created by the tool" | "测试结果如图X所示" |
+| "Let me explain the architecture" | "系统架构设计如图X所示" |
+
+Rule: never mention the tool, agent, AI, or generation process. Write as if you built the system and took the screenshots yourself.
+
 ## Workflow diagram
 
 ```mermaid
