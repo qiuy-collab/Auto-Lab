@@ -2,6 +2,11 @@
 
 > AI 驱动的大学实验报告自动填写工具。给 AI agent 一份需求文档 + 一个 Word 模板，它帮你把报告写好、截图配好、图表插好、格式调好，直接交。
 
+![Auto Lab](https://img.shields.io/badge/Auto--Lab-2.0-blue)
+![License](https://img.shields.io/badge/License-MIT-green)
+![Python](https://img.shields.io/badge/Python-3.10+-yellow)
+![Agent Skills](https://img.shields.io/badge/Agent--Skills-Standard-purple)
+
 ## 它能做什么
 
 大学生写实验报告 / 课程设计报告时，最耗时的不是思考，而是：

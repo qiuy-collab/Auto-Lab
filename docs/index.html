@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auto Lab - AI 实验报告自动填写工具</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.6; color: #333; }
+        .hero { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 80px 20px; text-align: center; }
+        .hero h1 { font-size: 3rem; margin-bottom: 20px; }
+        .hero p { font-size: 1.2rem; max-width: 600px; margin: 0 auto 30px; opacity: 0.9; }
+        .btn { display: inline-block; padding: 12px 30px; background: white; color: #667eea; text-decoration: none; border-radius: 5px; font-weight: bold; margin: 10px; }
+        .btn:hover { opacity: 0.9; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 60px 20px; }
+        .features { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+        .feature { padding: 30px; border: 1px solid #eee; border-radius: 10px; }
+        .feature h3 { color: #667eea; margin-bottom: 15px; }
+        .workflow { background: #f8f9fa; }
+        .workflow pre { background: #333; color: #fff; padding: 20px; border-radius: 10px; overflow-x: auto; }
+        .footer { background: #333; color: white; text-align: center; padding: 30px; }
+    </style>
+</head>
+<body>
+    <div class="hero">
+        <h1>Auto Lab</h1>
+        <p>AI 驱动的大学实验报告自动填写工具。给 AI agent 一份需求文档 + 一个 Word 模板，它帮你把报告写好、截图配好、图表插好、格式调好，直接交。</p>
+        <a href="https://github.com/qiuy-collab/Auto-Lab.skill" class="btn">GitHub</a>
+        <a href="#features" class="btn">功能特性</a>
+    </div>
+    
+    <div class="container" id="features">
+        <h2 style="text-align: center; margin-bottom: 40px;">功能特性</h2>
+        <div class="features">
+            <div class="feature">
+                <h3>三条截图路线</h3>
+                <p><strong>ai_simulated</strong>: AI 生成逼真的终端、IDE、配置截图</p>
+                <p><strong>browser_capture</strong>: 本地浏览器截图（自己的前端页面）</p>
+                <p><strong>diagram_assets</strong>: 流程图、ER 图、数据流图自动生成</p>
+            </div>
+            <div class="feature">
+                <h3>模板安全填充</h3>
+                <p>保留模板结构，清理占位符和格式指令，用学生口吻重写内容</p>
+            </div>
+            <div class="feature">
+                <h3>预任务支持</h3>
+                <p>自动检测是否需要先完成代码、数据等预任务，再写报告</p>
+            </div>
+            <div class="feature">
+                <h3>40+ 验收检查</h3>
+                <p>内置模板完整性、目录、正文质量、图例、交付包等全面检查</p>
+            </div>
+            <div class="feature">
+                <h3>一键打包交付</h3>
+                <p>自动生成 submit/ 文件夹 + submit.zip，代码/数据/报告完整交付</p>
+            </div>
+            <div class="feature">
+                <h3>Agent 友好</h3>
+                <p>标准化工作流，Agent Skills Standard 兼容，支持多种 runtime</p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="container workflow">
+        <h2 style="text-align: center; margin-bottom: 40px;">工作流程</h2>
+        <pre>
+需求文档 + Word 模板
+       ↓
+  自动安装依赖 + 环境检查
+       ↓
+  分析需求 → 规划截图和图表路线
+       ↓
+  🔴 确认分析结果（agent 停下来等你）
+       ↓
+  生成 AI 截图 / 浏览器截图 / 流程图
+       ↓
+  填写模板 → 清理占位符 → 插入图片
+       ↓
+  🔴 检查输出文档（agent 停下来等你）
+       ↓
+  打包交付（submit/ 文件夹 + submit.zip）
+        </pre>
+    </div>
+    
+    <div class="footer">
+        <p>Auto Lab v2.0 | MIT License | <a href="https://github.com/qiuy-collab/Auto-Lab.skill" style="color: #667eea;">GitHub</a></p>
+    </div>
+</body>
+</html>
