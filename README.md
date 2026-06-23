@@ -2,7 +2,7 @@
 
 # AutoLab.skill
 
-**把作业要求、Word 模板、截图和提交包整理成可交付的报告文件。**
+**五分钟帮你搞定复杂的实验报告。**
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Version](https://img.shields.io/badge/version-2.0-blue.svg)](#)
@@ -12,11 +12,9 @@
 
 ---
 
-## 各种报告多得烦人？
+## 一句话
 
-排版麻烦得要死？  
-学校模板一堆格式要求？  
-截图、流程图、ER 图、运行结果还得自己整理？
+五分钟帮你搞定复杂的实验报告。
 
 ---
 
