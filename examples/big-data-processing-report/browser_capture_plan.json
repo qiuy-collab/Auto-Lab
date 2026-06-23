@@ -1,0 +1,14 @@
+{
+  "enabled": false,
+  "capability_check_required": true,
+  "startup_command": "",
+  "startup_cwd": "",
+  "base_url": "",
+  "target_kind": "frontend_or_self_built_app",
+  "screenshots": [],
+  "notes": [
+    "Use only for local frontend pages or self-built app/web practice screenshots.",
+    "Do not use this route for terminal or software configuration figures.",
+    "The actual pages, startup command, and base URL must come from the real project requirement and local app, not from a generic default."
+  ]
+}

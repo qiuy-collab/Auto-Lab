@@ -1,0 +1,135 @@
+{
+  "has_grading_rubric": true,
+  "target_tier": "excellent",
+  "run_mode": "ai_only_draft",
+  "pre_task_required": false,
+  "images_required": true,
+  "ai_images_required": true,
+  "browser_capture_required": false,
+  "diagram_assets_required": false,
+  "video_required": false,
+  "reference_template_cleanup_required": false,
+  "submission_package_required": true,
+  "ai_visual_review_completed": true,
+  "diagram_visual_review_completed": false,
+  "video_review_completed": false,
+  "allow_zero_images": false,
+  "minimum_image_count": 12,
+  "image_route_policy": {
+    "ai_simulated_enabled": true,
+    "browser_capture_enabled": true,
+    "diagram_assets_enabled": true,
+    "video_processing_enabled": true,
+    "ai_simulated_scope": [
+      "terminal",
+      "command_output",
+      "software_configuration"
+    ],
+    "browser_capture_scope": [
+      "local_frontend_page",
+      "self_built_app_or_web_practice"
+    ],
+    "diagram_assets_scope": [
+      "function_diagram",
+      "flowchart",
+      "data_flow_diagram",
+      "er_diagram"
+    ],
+    "video_processing_scope": [
+      "video_analysis",
+      "screen_recording",
+      "operation_recording"
+    ]
+  },
+  "planned_figures": [
+    {
+      "name": "img_01",
+      "anchor": "VM and Ubuntu installation success evidence",
+      "heading": "1. 虚拟机与Ubuntu系统安装",
+      "source_mode": "ai_simulated",
+      "scope": "software_configuration"
+    },
+    {
+      "name": "img_02",
+      "anchor": "Hadoop pseudo-distributed configuration success evidence",
+      "heading": "2. Hadoop伪分布模式配置",
+      "source_mode": "ai_simulated",
+      "scope": "software_configuration"
+    },
+    {
+      "name": "img_03",
+      "anchor": "HBase startup evidence",
+      "heading": "3. HBase安装与连接测试",
+      "source_mode": "ai_simulated",
+      "scope": "software_configuration"
+    },
+    {
+      "name": "img_04",
+      "anchor": "Hive startup evidence",
+      "heading": "4. Hive安装与元数据配置",
+      "source_mode": "ai_simulated",
+      "scope": "software_configuration"
+    },
+    {
+      "name": "img_05",
+      "anchor": "Spark startup evidence",
+      "heading": "5. Spark运行环境验证",
+      "source_mode": "ai_simulated",
+      "scope": "software_configuration"
+    },
+    {
+      "name": "img_06",
+      "anchor": "Linux shell operation results",
+      "heading": "1. Linux目录与文件操作",
+      "source_mode": "ai_simulated",
+      "scope": "command_output"
+    },
+    {
+      "name": "img_07",
+      "anchor": "HDFS shell operation results",
+      "heading": "2. HDFS shell命令操作",
+      "source_mode": "ai_simulated",
+      "scope": "command_output"
+    },
+    {
+      "name": "img_08",
+      "anchor": "HBase table operation results",
+      "heading": "3. HBase表设计与数据维护",
+      "source_mode": "ai_simulated",
+      "scope": "command_output"
+    },
+    {
+      "name": "img_09",
+      "anchor": "HiveQL operation results",
+      "heading": "4. HiveQL建库建表与查询",
+      "source_mode": "ai_simulated",
+      "scope": "command_output"
+    },
+    {
+      "name": "img_10",
+      "anchor": "Spark RDD and Spark SQL results",
+      "heading": "5. Spark RDD与Spark SQL综合分析",
+      "source_mode": "ai_simulated",
+      "scope": "command_output"
+    },
+    {
+      "name": "img_11",
+      "anchor": "data collection and cleaning evidence",
+      "heading": "2. 数据清洗与格式转换",
+      "source_mode": "ai_simulated",
+      "scope": "command_output"
+    },
+    {
+      "name": "img_12",
+      "anchor": "data analysis and visualization evidence",
+      "heading": "3. 数据可视化",
+      "source_mode": "ai_simulated",
+      "scope": "command_output"
+    }
+  ],
+  "notes": [
+    "This checklist follows the user's ai_only instruction for screenshots only.",
+    "Code, data, scripts, and packaging still need to be real local deliverables.",
+    "For structural DOCX operations, use the customized task scripts produced in this run."
+  ]
+}

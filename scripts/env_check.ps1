@@ -14,7 +14,6 @@ $ImageConcurrencyPy = Join-Path $Root "scripts\test_image_concurrency.py"
 $SubmissionPackagePy = Join-Path $Root "scripts\package_submission.py"
 $EnvFile = Join-Path $Root ".env"
 $EnvExample = Join-Path $Root ".env.example"
-$MiniMaxSkill = Join-Path $Root "vendor\minimax-docx\SKILL.md"
 $LocalFfmpeg = Join-Path $env:USERPROFILE "Tools\ffmpeg\bin\ffmpeg.exe"
 $LocalFfprobe = Join-Path $env:USERPROFILE "Tools\ffmpeg\bin\ffprobe.exe"
 $VendorFfmpeg = Join-Path $Root "vendor\ffmpeg\bin\ffmpeg.exe"
@@ -52,6 +51,22 @@ Write-Host "=== auto-lab Environment Check ==="
 Write-Host "Root: $Root"
 Write-Host ""
 
+# Check vendor skills (shipped with repo)
+$VendorSkills = @(
+    @{Name="minimax-docx"; Path=Join-Path $Root "vendor\minimax-docx\SKILL.md"},
+    @{Name="baseline-ui"; Path=Join-Path $Root "vendor\baseline-ui\SKILL.md"},
+    @{Name="frontend-design"; Path=Join-Path $Root "vendor\frontend-design\SKILL.md"},
+    @{Name="webapp-testing"; Path=Join-Path $Root "vendor\webapp-testing\SKILL.md"}
+)
+
+foreach ($skill in $VendorSkills) {
+    if (Test-Path $skill.Path) {
+        Ok "vendor skill found: $($skill.Name)"
+    } else {
+        Fail "vendor skill missing: $($skill.Name)"
+    }
+}
+
 if (Get-Command python -ErrorAction SilentlyContinue) {
     Ok "python $(& python --version 2>&1)"
 } else {
@@ -71,7 +86,7 @@ if (Test-Path $VideoProcessPy) { Ok "scripts\video_process.py found" } else { Fa
 if (Test-Path $BlankTemplatePy) { Ok "scripts\prepare_blank_template.py found" } else { Fail "scripts\prepare_blank_template.py missing" }
 if (Test-Path $ImageConcurrencyPy) { Ok "scripts\test_image_concurrency.py found" } else { Fail "scripts\test_image_concurrency.py missing" }
 if (Test-Path $SubmissionPackagePy) { Ok "scripts\package_submission.py found" } else { Fail "scripts\package_submission.py missing" }
-if (Test-Path $MiniMaxSkill) { Ok "minimax-docx skill found" } else { Fail "minimax-docx skill missing" }
+
 
 if (Get-Command python -ErrorAction SilentlyContinue) {
     try {
@@ -180,10 +195,6 @@ foreach ($scriptName in @("init_run.py", "run_workflow.py", "capture_frontend_sc
         }
     } catch {
         Fail "$scriptName not executable: $_"
-    }
-}
-    } else {
-        Fail "$scriptName not found"
     }
 }
 

@@ -1,0 +1,15 @@
+{
+  "enabled": false,
+  "completed": false,
+  "task_type": "",
+  "objective": "",
+  "requirements_dependency": "",
+  "execution_summary": "",
+  "output_summary": "",
+  "output_paths": [],
+  "output_artifacts": [],
+  "report_usage_notes": [
+    "This run is authorized as ai_only for visual evidence.",
+    "The second big-data-processing part still includes real local code and generated CSV outputs."
+  ]
+}

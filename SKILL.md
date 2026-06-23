@@ -13,6 +13,18 @@ The executable workflow expects a `.docx` template for `python-docx` processing.
 
 The agent MUST install all dependencies automatically before running any script. Do not ask the user to install anything manually.
 
+### Vendor skills (shipped with repo)
+
+The `vendor/` directory contains skills shipped with this repo. No installation needed — they are included when the user clones/forks the repo.
+
+Check at startup:
+- `vendor/minimax-docx/SKILL.md` — for DOCX structural editing
+- `vendor/baseline-ui/SKILL.md` — for frontend baseline constraints
+- `vendor/frontend-design/SKILL.md` — for frontend implementation quality
+- `vendor/webapp-testing/SKILL.md` — for web-app verification
+
+If any vendor skill is missing, report the error and stop — do not silently skip.
+
 ### Required dependencies (install silently)
 
 ```bash
@@ -30,12 +42,13 @@ pip install requests python-docx Pillow
 ### Auto-setup procedure
 
 1. Check if `python` is available. If not, report to user and stop.
-2. Run `pip install requests python-docx Pillow` silently.
-3. If `ai_simulated` route is planned, check `.env` exists and has `BASEURL`+`APIKEY`. If missing, copy `.env.example` to `.env` and ask the user to fill in the API key.
-4. If `browser_capture` route is planned, run `pip install playwright && playwright install chromium`.
-5. If video route is planned, run `pip install av opencv-python numpy mss`.
-6. After installs, run `powershell -ExecutionPolicy Bypass -File scripts/env_check.ps1` to verify.
-7. If env_check still reports FAIL after auto-install, report the specific failure to the user with the exact fix command. Only ask the user for manual intervention when auto-install cannot resolve it.
+2. Check vendor skills exist in `vendor/` directory. If any missing, report error and stop.
+3. Run `pip install requests python-docx Pillow` silently.
+4. If `ai_simulated` route is planned, check `.env` exists and has `BASEURL`+`APIKEY`. If missing, copy `.env.example` to `.env` and ask the user to fill in the API key.
+5. If `browser_capture` route is planned, run `pip install playwright && playwright install chromium`.
+6. If video route is planned, run `pip install av opencv-python numpy mss`.
+7. After installs, run `powershell -ExecutionPolicy Bypass -File scripts/env_check.ps1` to verify.
+8. If env_check still reports FAIL after auto-install, report the specific failure to the user with the exact fix command. Only ask the user for manual intervention when auto-install cannot resolve it.
 
 **Rule**: Environment issues are the agent's responsibility to fix. Only ask the user for semantic decisions (route choice, content review, delivery sign-off), not for `pip install`.
 

@@ -1,0 +1,55 @@
+{
+  "target_docx": "C:\\Users\\ASUS\\Desktop\\workshop\\归档\\80 linxu\\auto_lab_run\\大数据处理技术课程大作业报告_AI版.docx",
+  "images": {
+    "img_01": "C:\\Users\\ASUS\\Desktop\\workshop\\归档\\80 linxu\\auto_lab_run\\generated_images\\img_01.png",
+    "img_02": "C:\\Users\\ASUS\\Desktop\\workshop\\归档\\80 linxu\\auto_lab_run\\generated_images\\img_02.png",
+    "img_03": "C:\\Users\\ASUS\\Desktop\\workshop\\归档\\80 linxu\\auto_lab_run\\generated_images\\img_03.png",
+    "img_04": "C:\\Users\\ASUS\\Desktop\\workshop\\归档\\80 linxu\\auto_lab_run\\generated_images\\img_04.png",
+    "img_05": "C:\\Users\\ASUS\\Desktop\\workshop\\归档\\80 linxu\\auto_lab_run\\generated_images\\img_05.png",
+    "img_06": "C:\\Users\\ASUS\\Desktop\\workshop\\归档\\80 linxu\\auto_lab_run\\generated_images\\img_06.png",
+    "img_07": "C:\\Users\\ASUS\\Desktop\\workshop\\归档\\80 linxu\\auto_lab_run\\generated_images\\img_07.png",
+    "img_08": "C:\\Users\\ASUS\\Desktop\\workshop\\归档\\80 linxu\\auto_lab_run\\generated_images\\img_08.png",
+    "img_09": "C:\\Users\\ASUS\\Desktop\\workshop\\归档\\80 linxu\\auto_lab_run\\generated_images\\img_09.png",
+    "img_10": "C:\\Users\\ASUS\\Desktop\\workshop\\归档\\80 linxu\\auto_lab_run\\generated_images\\img_10.png",
+    "img_11": "C:\\Users\\ASUS\\Desktop\\workshop\\归档\\80 linxu\\auto_lab_run\\generated_images\\img_11.png",
+    "img_12": "C:\\Users\\ASUS\\Desktop\\workshop\\归档\\80 linxu\\auto_lab_run\\generated_images\\img_12.png"
+  },
+  "placements": {
+    "img_01": {
+      "caption": "图1-1 Ubuntu系统安装与基础环境检查"
+    },
+    "img_02": {
+      "caption": "图1-2 Hadoop伪分布模式配置与启动结果"
+    },
+    "img_03": {
+      "caption": "图1-3 HBase服务启动与Shell连通性验证"
+    },
+    "img_04": {
+      "caption": "图1-4 Hive元数据配置与数据库查看结果"
+    },
+    "img_05": {
+      "caption": "图1-5 Spark运行环境与交互式启动结果"
+    },
+    "img_06": {
+      "caption": "图1-6 Linux目录与文件操作命令结果"
+    },
+    "img_07": {
+      "caption": "图1-7 HDFS目录管理与文件传输结果"
+    },
+    "img_08": {
+      "caption": "图1-8 HBase表创建与数据维护结果"
+    },
+    "img_09": {
+      "caption": "图1-9 HiveQL建库建表与查询结果"
+    },
+    "img_10": {
+      "caption": "图1-10 Spark RDD与Spark SQL统计结果"
+    },
+    "img_11": {
+      "caption": "图2-1 数据采集与清洗过程结果"
+    },
+    "img_12": {
+      "caption": "图2-2 数据分析与可视化结果"
+    }
+  }
+}

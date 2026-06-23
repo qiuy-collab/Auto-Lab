@@ -85,6 +85,21 @@ python scripts/init_run.py \
 
 详细步骤见 `SKILL.md` 的 Execution steps 章节。
 
+## 示例
+
+查看 `examples/big-data-processing-report/` 获取一个完整的运行实例：
+
+- **需求文档**：大学《大数据处理技术》课程大作业
+- **输出**：12 张 AI 生成的终端/IDE 截图 + 完整报告 + 代码/数据/图表打包
+- **配置文件**：包含完整的 requirement_analysis、prompt_config、insert_config 等
+
+示例展示了如何：
+1. 分析课程需求，判断需要预任务（生成数据 + 写 PySpark 代码）
+2. 规划 12 张 AI 截图的生成策略
+3. 保留模板结构，清理占位符和格式指令
+4. 用学生口吻重写报告内容
+5. 打包 code/data/output + 报告为 submit.zip
+
 ## 文档验收标准
 
 Auto Lab 内置 7 大类 40+ 检查项，交付前自动验证：

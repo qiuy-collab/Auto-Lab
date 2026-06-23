@@ -1,0 +1,86 @@
+{
+  "total_count": 12,
+  "resolution": "2048x1152",
+  "output_dir": "C:\\Users\\ASUS\\Desktop\\workshop\\归档\\80 linxu\\auto_lab_run\\generated_images",
+  "max_workers": 3,
+  "max_retries": 3,
+  "retry_delay": 2,
+  "image_policy": {
+    "default_mode": "screenshot_strict",
+    "auto_append_negative": true,
+    "fail_on_prompt_risk": true,
+    "forbidden_terms": [
+      "poster",
+      "callout",
+      "annotation",
+      "flowchart",
+      "diagram"
+    ],
+    "ui_density": "low_information_density",
+    "crop_browser_chrome": true,
+    "forbid_localhost_or_dev_url": true
+  },
+  "global_prompt": "Create clean full-screen digital screenshots from the Ubuntu 22.04 desktop environment only. Do not show a physical monitor, camera perspective, desk, room, people, reflections, bezel, or any photographed real-world background. Every image must look like a direct operating-system screenshot. Keep one consistent Ubuntu theme and one consistent terminal theme. When a terminal is visible, the shell prompt username must be exactly nieshengyu, such as nieshengyu@ubuntu or nieshengyu@hadoop. Text should look like natural operating-system or terminal text only. Avoid browser address bars, tabs, localhost, dev urls, decorative annotations, teaching boards, posters, and visible AI markers.",
+  "images": [
+    {
+      "name": "img_01",
+      "mode": "screenshot_strict",
+      "prompt": "A full-screen Ubuntu screenshot showing installation completion and terminal verification for a virtual machine setup. Show hostname configuration, ip address check, java version output, and a clean file manager window. The visible shell prompt username must be nieshengyu. No photographed monitor or physical environment."
+    },
+    {
+      "name": "img_02",
+      "mode": "screenshot_strict",
+      "prompt": "A full-screen Ubuntu screenshot of Hadoop pseudo distributed configuration with terminal commands showing namenode format success, jps results, and a split view of core-site.xml and hdfs-site.xml in a code editor. The visible shell prompt username must be nieshengyu. No photographed monitor or physical environment."
+    },
+    {
+      "name": "img_03",
+      "mode": "screenshot_strict",
+      "prompt": "A full-screen Ubuntu screenshot of HBase startup verification with hbase shell opened, status output, list command result, and a clean terminal session proving that the service is running. The visible shell prompt username must be nieshengyu. No photographed monitor or physical environment."
+    },
+    {
+      "name": "img_04",
+      "mode": "screenshot_strict",
+      "prompt": "A full-screen Ubuntu screenshot of Hive configuration and startup with hive-site.xml visible in an editor and a terminal showing schematool initialization plus a simple show databases result. The visible shell prompt username must be nieshengyu. No photographed monitor or physical environment."
+    },
+    {
+      "name": "img_05",
+      "mode": "screenshot_strict",
+      "prompt": "A full-screen Ubuntu screenshot of Spark environment verification with spark-shell startup, pyspark banner, version information, and terminal output showing a short word count result. The visible shell prompt username must be nieshengyu. No photographed monitor or physical environment."
+    },
+    {
+      "name": "img_06",
+      "mode": "screenshot_strict",
+      "prompt": "A full-screen Ubuntu screenshot of Linux shell practice showing mkdir, cd, ls, touch, cp, mv, chmod, and cat commands inside a meaningful directory tree. The visible shell prompt username must be nieshengyu. No photographed monitor or physical environment."
+    },
+    {
+      "name": "img_07",
+      "mode": "screenshot_strict",
+      "prompt": "A full-screen Ubuntu screenshot of HDFS shell operations showing hdfs dfs ls, mkdir, put, cat, get, and cp commands with successful outputs and neatly readable terminal text. The visible shell prompt username must be nieshengyu. No photographed monitor or physical environment."
+    },
+    {
+      "name": "img_08",
+      "mode": "screenshot_strict",
+      "prompt": "A full-screen Ubuntu screenshot of HBase table operations showing create table, put, scan, count, alter, deleteall, and drop commands in hbase shell with successful results. The visible shell prompt username must be nieshengyu. No photographed monitor or physical environment."
+    },
+    {
+      "name": "img_09",
+      "mode": "screenshot_strict",
+      "prompt": "A full-screen Ubuntu screenshot of HiveQL practice showing create database, use, create table, load data, select, group by, and order by commands with a clear terminal result table. The visible shell prompt username must be nieshengyu. No photographed monitor or physical environment."
+    },
+    {
+      "name": "img_10",
+      "mode": "screenshot_strict",
+      "prompt": "A full-screen Ubuntu screenshot of Spark RDD and Spark SQL coursework showing a code editor on the left and a terminal or notebook result on the right with grouped statistics and a small dataframe preview. Any terminal prompt username must be nieshengyu. No photographed monitor or physical environment."
+    },
+    {
+      "name": "img_11",
+      "mode": "screenshot_strict",
+      "prompt": "A full-screen Ubuntu screenshot of Python data collection and cleaning showing a code editor with csv processing logic, a terminal run output reporting before and after row counts, and a preview of cleaned tabular data. Any terminal prompt username must be nieshengyu. No photographed monitor or physical environment."
+    },
+    {
+      "name": "img_12",
+      "mode": "screenshot_strict",
+      "prompt": "A full-screen Ubuntu screenshot of data analysis and visualization showing a Python notebook or editor generating a bar chart and summary table about online course learning data. Any terminal prompt username must be nieshengyu. No photographed monitor or physical environment."
+    }
+  ]
+}
