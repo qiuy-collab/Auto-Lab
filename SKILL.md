@@ -306,6 +306,7 @@ flowchart TD
 | 10 | Run the entire workflow without any human confirmation | May go off-track irreversibly | Stop at every 🔴 checkpoint, wait for user |
 | 11 | Fabricate timestamps in AI-generated screenshots | Unrealistic images | Use real current time in prompt |
 | 12 | Use generic placeholder code in AI code/IDE screenshots | Screenshot doesn't match actual project | Pick core code snippets from the project for the prompt |
+| 13 | Stack multiple captions after one image, or group captions at section end | Figure and caption mismatch, teacher can't match them | One caption per image, placed immediately after it |
 
 ## Image routes — hard boundaries
 
@@ -373,6 +374,28 @@ When filling a DOCX template:
 - **Use** `scripts/template_adapter.py` as a reusable library: `find_placeholders()`, `replace_placeholder_text()`, `insert_image_after_paragraph()`, `remove_template_instructions()`, `validate_output()`, `write_fill_script()`.
 - The agent must customize `task_scripts/fill_template.py`, `insert_images.py`, and `verify_template.py` using `template_adapter` functions rather than writing everything from scratch.
 - The final report must not contain teacher-facing instructions or format specifications as body paragraphs.
+
+### Figure-caption pairing rule
+
+Every image MUST have its own caption immediately after it. The structure for each figure must be:
+
+```
+[lead-in sentence describing what the figure shows]
+[blank line]
+[the image itself]
+[blank line]
+[figure caption: "图X  描述文字"]
+[blank line]
+[short analysis paragraph]
+```
+
+**Strict rules**:
+- Each image gets exactly one caption. Never stack multiple captions after a single image.
+- Never stack multiple images with a single shared caption.
+- Captions must not be grouped together at the end of a section. They must stay paired with their respective images.
+- The pattern is always: lead-in → image → caption → analysis. One unit per figure.
+- If the template has `{{img_01}}` placeholders, each placeholder should be followed by its caption paragraph before the next placeholder.
+- After filling, verify that every `{{img_XX}}` has a caption within 2 paragraphs below it. If a caption is missing or misaligned, fix it before delivery.
 
 ## Frontend code constraints
 
@@ -464,32 +487,101 @@ Machine-checkable final acceptance record. Every required deliverable must appea
 }
 ```
 
-## Verification checklist
+## Document acceptance checklist
 
-Validation must confirm:
-- Image count consistent across placeholders and configs
-- Route planning exists when required
-- Pre-task outputs exist when assignment depends on them
-- AI prompts used only for allowed scopes
-- AI screenshots: coherent background, low density, no localhost, real time, real project code
-- AI failures not silently replaced with fake screenshots
-- Upstream probed before batch generation
-- Browser capture used only for local frontend/app pages
-- Diagram assets used only for diagrams/flowcharts/ER
-- Diagram visual review passed for routing, spacing, readability
-- Video plans have explicit I/O paths and reviewed outputs
-- Reference-template cleanup preserves cover/headings, removes body content
-- Submission includes both `submit/` folder and `submit.zip`, named `submit.zip` without suffixes
-- Frontend screenshots not routed through AI prompts
-- Report not pure-text when rubric expects figures
-- Template shell preserved
-- Student voice, not agent voice
-- Template instructions, placeholders, format reminders removed
-- Code deliverables have startup instructions and verification
-- Delivery review checked every deliverable against requirement
-- `delivery_review.json` written
-- Frontend code has no placeholder text
-- Vendor skills applied for frontend pre-tasks
+Before delivery, the agent MUST run through every item below. Each item must pass — if any fails, fix it before handing the document to the user.
+
+### 1. Template integrity
+
+| Check | How to verify | Pass condition |
+|-------|--------------|----------------|
+| Cover page preserved | Open output DOCX, compare cover area with original template | Cover layout, fixed text, spacing identical to template |
+| Heading hierarchy intact | Check paragraph styles (Heading 1, Heading 2, etc.) | All original headings preserved, no headings deleted or retyped as Normal |
+| Table structure preserved | Check tables in output vs template | Same row/column count, same merged cells, same header rows |
+| Page layout unchanged | Check margins, orientation, page size | Matches template settings |
+| No direct writes to template | Confirm output path differs from template path | Two separate files exist |
+
+### 2. Table of contents
+
+| Check | How to verify | Pass condition |
+|-------|--------------|----------------|
+| TOC exists if template had one | Search for TOC field codes or "目录" / "Table of Contents" heading | Present if template had it |
+| TOC is not empty or broken | Open DOCX in Word, check page numbers | Page numbers resolve correctly, no "Error! No text of specified style" |
+| TOC matches actual headings | Compare TOC entries against body headings | Every level-1/level-2 heading appears in TOC |
+
+### 3. Body text quality
+
+| Check | How to verify | Pass condition |
+|-------|--------------|----------------|
+| No leftover placeholders | Search for `[TODO]`, `占位`, `示例内容`, `样例`, `{{` | Zero occurrences |
+| No template instructions | Search for `请在此处填写`, `此处替换`, `字号要求`, `行距要求`, `格式要求` | Zero occurrences |
+| No format reminders | Search for `字体要求`, `行距：`, `字号：` as body text | Zero occurrences (these are instructions, not content) |
+| No agent voice | Search for `agent`, `assistant`, `claude`, `gpt`, `I have generated`, `根据.*要求.*生成` | Zero occurrences |
+| Student voice throughout | Spot-check 3-5 paragraphs | Reads like a student describing their work, not a tool explaining outputs |
+| No empty paragraphs between sections | Check for consecutive blank lines | Max 1 blank line between sections |
+| Code blocks formatted correctly | Check code font (Consolas/Courier New), size, spacing | Code is monospace, readable, not wrapped in Normal style |
+
+### 4. Figures and captions — pairing rule
+
+| Check | How to verify | Pass condition |
+|-------|--------------|----------------|
+| Every image has a caption | For each `{{img_XX}}` or inserted image, check the paragraph 1-2 lines below | Caption exists within 2 paragraphs of each image |
+| One caption per image | Count images vs captions | Image count = caption count |
+| No stacked captions | Check that captions are not grouped together | Each caption is immediately after its own image |
+| No orphan images | Check that every image has a caption within 2 paragraphs | Zero images without captions |
+| Caption format consistent | Check caption style/numbering | All captions follow "图X  描述" format consistently |
+| Lead-in sentence present | Check paragraph before each image | Each image is preceded by a sentence introducing it |
+| Analysis paragraph present | Check paragraph after each caption | Each caption is followed by a short analysis |
+| Figure numbering sequential | Check caption numbers | 1, 2, 3... with no gaps or duplicates |
+| No broken image links | Right-click images in Word → check paths | All images render, no red X or broken links |
+
+### 5. Image content quality
+
+| Check | How to verify | Pass condition |
+|-------|--------------|----------------|
+| AI screenshots have real time | Open each AI image, check clock/time displays | Time matches actual generation time |
+| AI code screenshots use project code | Compare code in image with actual project files | Core logic matches, not generic placeholders |
+| No localhost in images | Search images for `localhost`, `127.0.0.1` | Zero occurrences |
+| No dev URLs | Search images for `localhost:`, `127.0.0.1:`, `dev server` | Zero occurrences |
+| Diagrams have no overlaps | Visual inspection of each diagram | Labels readable, no overlapping text or arrows |
+| All images render correctly | Scroll through full document | No blank spaces, no broken embeds |
+
+### 6. Submission package
+
+| Check | How to verify | Pass condition |
+|-------|--------------|----------------|
+| `submit/` folder exists | Check output directory | Folder present with correct contents |
+| `submit.zip` exists | Check output directory | Zip present, same contents as folder |
+| Archive name is `submit.zip` | Check zip filename | Exactly `submit.zip`, no suffixes like "AI版" / "完整版" / "final" |
+| No unwanted files | Check zip contents | No `.tmp`, `~$*`, `.log`, `__pycache__`, `.git` files |
+| Required deliverables present | Compare zip contents against requirement | Every required item is included |
+
+### 7. Run metadata
+
+| Check | How to verify | Pass condition |
+|-------|--------------|----------------|
+| `delivery_review.json` written | Check output directory | File exists with `overall_pass: true` |
+| `requirement_analysis.json` filled | Check file content | `decision_summary` is non-empty |
+| `requirement_checklist.json` consistent | Cross-check flags | Enabled flags match actual workflow outputs |
+| `pre_task_plan.json` marked correctly | Check `completed` field | If pre-task was done, `completed: true` with output paths |
+
+### Final gate
+
+After all checks pass, present a summary to the user:
+
+```
+Document acceptance report:
+- Template integrity: PASS / FAIL
+- Table of contents: PASS / FAIL
+- Body text quality: PASS / FAIL
+- Figure-caption pairing: PASS / FAIL (N images, N captions)
+- Image content quality: PASS / FAIL
+- Submission package: PASS / FAIL
+- Run metadata: PASS / FAIL
+Overall: READY / NOT READY
+```
+
+🔴 **STOP — show this summary to the user.** Wait for sign-off before marking the task complete.
 
 ## Examples
 
